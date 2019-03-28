@@ -107,7 +107,6 @@ exports[`components/AdminConsole should generate the routes 1`] = `
           render={[Function]}
         />
         <Redirect
-          push={false}
           to="/system_analytics"
         />
       </Switch>
@@ -124,7 +123,6 @@ exports[`components/AdminConsole should generate the routes 1`] = `
 
 exports[`components/AdminConsole should redirect to / when not system admin 1`] = `
 <Redirect
-  push={false}
   to="/"
 />
 `;
