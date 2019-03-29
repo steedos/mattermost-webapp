@@ -112,7 +112,6 @@ export default class PostList extends React.PureComponent {
 
         this.loadingPosts = false;
         this.extraPagesLoaded = 0;
-
         const channelIntroMessage = PostListRowListIds.CHANNEL_INTRO_MESSAGE;
         const isMobile = Utils.isMobile();
         this.state = {
@@ -295,9 +294,9 @@ export default class PostList extends React.PureComponent {
         return postListIds[index] ? postListIds[index] : index;
     }
 
-    onScroll = ({scrollDirection, scrollOffset, scrollUpdateWasRequested}) => {
+    onScroll = ({scrollDirection, scrollOffset, scrollUpdateWasRequested}) => { //eslint-disable-line
         const isNotLoadingPosts = !this.state.postsLoading && !this.loadingPosts;
-        const didUserScrollBackwards = scrollDirection === 'backward' && !scrollUpdateWasRequested;
+        const didUserScrollBackwards = scrollDirection === 'backward';
         const isOffsetWithInRange = scrollOffset < 1000;
         if (isNotLoadingPosts && didUserScrollBackwards && isOffsetWithInRange && !this.state.atEnd) {
             this.loadingPosts = true;
@@ -380,7 +379,7 @@ export default class PostList extends React.PureComponent {
         );
         if (newMessagesSeparatorIndex > 0) {
             return {
-                index: newMessagesSeparatorIndex,
+                index: newMessagesSeparatorIndex + 2,
                 position: 'start',
             };
         }
