@@ -85,7 +85,7 @@ export default class AdminNavbarDropdown extends React.Component {
                     {switchTeams}
                 </MenuGroup>
                 <MenuGroup>
-                    <MenuItemExternalLink
+                    {/* <MenuItemExternalLink
                         url='https://about.mattermost.com/administrators-guide/'
                         text={Utils.localizeMessage('admin.nav.administratorsGuide', 'Administrator Guide')}
                     />
@@ -96,7 +96,7 @@ export default class AdminNavbarDropdown extends React.Component {
                     <MenuItemExternalLink
                         url='https://about.mattermost.com/commercial-support/'
                         text={Utils.localizeMessage('admin.nav.commercialSupport', 'Commercial Support')}
-                    />
+                    /> */}
                     <MenuItemToggleModalRedux
                         modalId={ModalIdentifiers.ABOUT}
                         dialogType={AboutBuildModal}
