@@ -28,12 +28,12 @@ const testCases = [
 describe('AS14318 Theme Colors - Color Picker', () => {
     before(() => {
         // 1. Set default theme preference
-        cy.updateThemePreference();
+        cy.apiSaveThemePreference();
     });
 
     after(() => {
         // * Revert to default theme preference
-        cy.updateThemePreference();
+        cy.apiSaveThemePreference();
     });
 
     it('Theme Display should render in min setting view', () => {
@@ -92,14 +92,14 @@ describe('AS14318 Theme Colors - Color Picker', () => {
             cy.get('#accountSettingsHeader').should('have.css', 'background', 'rgb(17, 171, 168) none repeat scroll 0% 0% / auto padding-box border-box');
 
             // * Check Sidebar Header Text color change
-            cy.get('#accountSettingsTitle').should('have.css', 'color', 'rgb(129, 65, 65)');
+            cy.get('#accountSettingsModalLabel').should('have.css', 'color', 'rgb(129, 65, 65)');
         });
     });
 
     describe('Custom - Sidebar styles target output change', () => {
         it('should take effect each custom color in Channel View', () => {
             // * Check Sidebar Header Text color change after saving
-            cy.get('#accountSettingsTitle').should('have.css', 'color', 'rgb(129, 65, 65)');
+            cy.get('#accountSettingsModalLabel').should('have.css', 'color', 'rgb(129, 65, 65)');
 
             // * Check Sidebar Unread Text
             cy.get('.sidebar-item.unread-title').should('have.css', 'color', 'rgb(129, 65, 65)');

@@ -9,6 +9,7 @@ import {
     getChannelStats,
     getMyChannelMember,
     markChannelAsRead,
+    markChannelAsViewed,
     selectChannel,
 } from 'mattermost-redux/actions/channels';
 import {logout, loadMe} from 'mattermost-redux/actions/users';
@@ -70,13 +71,16 @@ export function emitChannelClickEvent(channel) {
 
             // Mark previous and next channel as read
             dispatch(markChannelAsRead(chan.id, oldChannelId));
+            dispatch(markChannelAsViewed(chan.id, oldChannelId));
             reloadIfServerVersionChanged();
         });
 
         if (chan.delete_at === 0) {
             const penultimate = LocalStorageStore.getPreviousChannelName(userId, teamId);
-            LocalStorageStore.setPenultimateChannelName(userId, teamId, penultimate);
-            LocalStorageStore.setPreviousChannelName(userId, teamId, chan.name);
+            if (penultimate !== chan.name) {
+                LocalStorageStore.setPenultimateChannelName(userId, teamId, penultimate);
+                LocalStorageStore.setPreviousChannelName(userId, teamId, chan.name);
+            }
         }
 
         // When switching to a different channel if the pinned posts is showing

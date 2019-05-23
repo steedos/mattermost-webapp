@@ -112,6 +112,9 @@
     .channel-header__icon {
         @include border-radius(50%);
         border: 1px solid;
+        display: flex;
+        justify-content: center;
+        align-items: center;
         cursor: pointer;
         height: 30px;
         line-height: 30px;
@@ -222,10 +225,14 @@
     .heading {
         font-size: 14px;
         font-weight: 600;
-        margin: 0 7px 0 0;
+        margin: 0 8px 0 0;
         flex: 1 1 0;
         overflow: hidden;
         text-overflow: ellipsis;
+    }
+
+    .Badge {
+        margin-left: 0;
     }
 
     .caret {
@@ -331,8 +338,10 @@
         height: 20px;
 
         span[data-emoticon] {
-            position: relative;
-            top: -1px;
+            .emoticon {
+                position: relative;
+                top: -1px;
+            }
         }
 
         blockquote {
@@ -537,7 +546,7 @@
 
         .dropdown-menu {
             margin: 4px 0 0 10px;
-            min-width: 199px;
+            min-width: 220px;
         }
 
         .sidebar-header-dropdown,

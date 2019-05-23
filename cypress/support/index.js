@@ -5,8 +5,9 @@
 // Read more at: https://on.cypress.io/configuration
 // ***********************************************************
 
-import './commands';
-import './validators';
+import './ui_commands';
+import './api_commands';
+import 'cypress-file-upload';
 
 // Add login cookies to whitelist to preserve it
 Cypress.Cookies.defaults({

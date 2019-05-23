@@ -64,6 +64,7 @@ export default class BackstageSidebar extends React.Component {
                                 defaultMessage='Incoming Webhooks'
                             />
                         )}
+                        id='incomingWebhooks'
                     />
                 </TeamPermissionGate>
             );
@@ -85,6 +86,7 @@ export default class BackstageSidebar extends React.Component {
                                 defaultMessage='Outgoing Webhooks'
                             />
                         )}
+                        id='outgoingWebhooks'
                     />
                 </TeamPermissionGate>
             );
@@ -106,6 +108,7 @@ export default class BackstageSidebar extends React.Component {
                                 defaultMessage='Slash Commands'
                             />
                         )}
+                        id='slashCommands'
                     />
                 </TeamPermissionGate>
             );
@@ -124,15 +127,13 @@ export default class BackstageSidebar extends React.Component {
                                 defaultMessage='OAuth 2.0 Applications'
                             />
                         }
+                        id='oauthApps'
                     />
                 </SystemPermissionGate>
             );
         }
 
-        // Commenting out bot accounts UI until 5.12
-        const botAccounts = null;
-
-        /*const botAccounts = (
+        const botAccounts = (
             <SystemPermissionGate permissions={['manage_bots']}>
                 <BackstageSection
                     name='bots'
@@ -143,9 +144,10 @@ export default class BackstageSidebar extends React.Component {
                             defaultMessage='Bot Accounts'
                         />
                     }
+                    id='botAccounts'
                 />
             </SystemPermissionGate>
-        );*/
+        );
 
         return (
             <TeamPermissionGate

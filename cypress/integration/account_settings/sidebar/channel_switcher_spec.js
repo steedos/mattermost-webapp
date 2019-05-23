@@ -1,18 +1,37 @@
 // Copyright (c) 2015-present Mattermost, Inc. All Rights Reserved.
 // See LICENSE.txt for license information.
 
+import {getRandomInt} from '../../../utils';
+import * as TIMEOUTS from '../../../fixtures/timeouts';
+
 // ***************************************************************
 // - [number] indicates a test step (e.g. 1. Go to a page)
 // - [*] indicates an assertion (e.g. * Check the title)
 // - Use element ID when selecting an element. Create one if none.
 // ***************************************************************
 
-/* eslint max-nested-callbacks: ["error", 3] */
+/* eslint max-nested-callbacks: ["error", 4] */
+
+let testChannel;
+const channelDisplayName = `Channel Switcher ${getRandomInt(9999).toString()}`;
 
 describe('Account Settings > Sidebar > Channel Switcher', () => {
     before(() => {
+        cy.visit('/');
+        cy.getCurrentTeamId().then((teamId) => {
+            cy.apiCreateChannel(teamId, 'channel-switcher', channelDisplayName).then((response) => {
+                testChannel = response.body;
+            });
+        });
+
         // 1. Go to Account Settings with "user-1"
         cy.toAccountSettingsModal('user-1');
+    });
+
+    after(() => {
+        cy.getCurrentChannelId().then((channelId) => {
+            cy.apiDeleteChannel(channelId);
+        });
     });
 
     it('should render in min setting view', () => {
@@ -111,9 +130,9 @@ describe('Account Settings > Sidebar > Channel Switcher', () => {
         // * Channel switcher hint should be visible
         cy.get('#quickSwitchHint').should('be.visible').should('contain', 'Type to find a channel. Use ↑↓ to browse, ↵ to select, ESC to dismiss.');
 
-        // 4. Type "nesciunt" on Channel switcher input
-        cy.get('#quickSwitchInput').type('nesciunt');
-        cy.wait(500);  // eslint-disable-line
+        // 4. Type channel display name} on Channel switcher input
+        cy.get('#quickSwitchInput').type(channelDisplayName);
+        cy.wait(TIMEOUTS.TINY);
 
         // * Suggestion list should be visible
         cy.get('#suggestionList').should('be.visible');
@@ -121,9 +140,9 @@ describe('Account Settings > Sidebar > Channel Switcher', () => {
         // 5. Press enter
         cy.get('#quickSwitchInput').type('{enter}');
 
-        // * Verify that it redirected into "nesciunt" as selected channel
-        cy.url().should('include', '/ad-1/channels/sequi-7');
-        cy.get('#channelHeaderTitle').should('be.visible').should('contain', 'nesciunt');
+        // * Verify that it redirected into "channel-switcher" as selected channel
+        cy.url().should('include', '/ad-1/channels/' + testChannel.name);
+        cy.get('#channelHeaderTitle').should('be.visible').should('contain', channelDisplayName);
     });
 
     it('set channel switcher setting to On and test on press of Ctrl/Cmd+K', () => {
@@ -140,9 +159,9 @@ describe('Account Settings > Sidebar > Channel Switcher', () => {
         // * Channel switcher hint should be visible
         cy.get('#quickSwitchHint').should('be.visible').should('contain', 'Type to find a channel. Use ↑↓ to browse, ↵ to select, ESC to dismiss.');
 
-        // 4. Type "comm" on Channel switcher input
-        cy.get('#quickSwitchInput').type('comm');
-        cy.wait(500);  // eslint-disable-line
+        // 4. Type channel display name on Channel switcher input
+        cy.get('#quickSwitchInput').type(channelDisplayName);
+        cy.wait(TIMEOUTS.TINY);
 
         // * Suggestion list should be visible
         cy.get('#suggestionList').should('be.visible');
@@ -150,9 +169,9 @@ describe('Account Settings > Sidebar > Channel Switcher', () => {
         // 5. Press enter
         cy.get('#quickSwitchInput').type('{enter}');
 
-        // * Verify that it redirected into "commodi" as selected channel
-        cy.url().should('include', '/ad-1/channels/autem-2');
-        cy.get('#channelHeaderTitle').should('be.visible').should('contain', 'commodi');
+        // * Verify that it redirected into "channel-switcher" as selected channel
+        cy.url().should('include', '/ad-1/channels/' + testChannel.name);
+        cy.get('#channelHeaderTitle').should('be.visible').should('contain', channelDisplayName);
     });
 
     it('AS13216 Using CTRL/CMD+K if Channel Switcher is hidden in the LHS', () => {
@@ -168,9 +187,9 @@ describe('Account Settings > Sidebar > Channel Switcher', () => {
         // * Channel switcher hint should be visible
         cy.get('#quickSwitchHint').should('be.visible').should('contain', 'Type to find a channel. Use ↑↓ to browse, ↵ to select, ESC to dismiss.');
 
-        // 3. Type "comm" on Channel switcher input
-        cy.get('#quickSwitchInput').type('comm');
-        cy.wait(500);  // eslint-disable-line
+        // 3. Type channel display name on Channel switcher input
+        cy.get('#quickSwitchInput').type(channelDisplayName);
+        cy.wait(TIMEOUTS.TINY);
 
         // * Suggestion list should be visible
         cy.get('#suggestionList').should('be.visible');
@@ -178,8 +197,8 @@ describe('Account Settings > Sidebar > Channel Switcher', () => {
         // 4. Press enter
         cy.get('#quickSwitchInput').type('{enter}');
 
-        // * Verify that it redirected into "commodi" as selected channel
-        cy.url().should('include', '/ad-1/channels/autem-2');
-        cy.get('#channelHeaderTitle').should('be.visible').should('contain', 'commodi');
+        // * Verify that it redirected into "channel-switcher" as selected channel
+        cy.url().should('include', '/ad-1/channels/' + testChannel.name);
+        cy.get('#channelHeaderTitle').should('be.visible').should('contain', channelDisplayName);
     });
 });

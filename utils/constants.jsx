@@ -25,6 +25,7 @@ import windows10ThemeImage from 'images/themes/windows_dark.png';
 import logoWebhook from 'images/webhook_icon.jpg';
 
 import Permissions from 'mattermost-redux/constants/permissions';
+import * as PostListUtils from 'mattermost-redux/utils/post_list';
 
 import {t} from 'utils/i18n';
 
@@ -107,14 +108,6 @@ export const ActionTypes = keyMirror({
 
     UPDATE_MOBILE_VIEW: null,
 
-    SEARCH_FLAGGED_POSTS_REQUEST: null,
-    SEARCH_FLAGGED_POSTS_SUCCESS: null,
-    SEARCH_FLAGGED_POSTS_FAILURE: null,
-
-    SEARCH_PINNED_POSTS_REQUEST: null,
-    SEARCH_PINNED_POSTS_SUCCESS: null,
-    SEARCH_PINNED_POSTS_FAILURE: null,
-
     SET_NAVIGATION_BLOCKED: null,
     DEFER_NAVIGATION: null,
     CANCEL_NAVIGATION: null,
@@ -194,6 +187,11 @@ export const ModalIdentifiers = {
     REMOVED_FROM_CHANNEL: 'removed_from_channel',
     EMAIL_INVITE: 'email_invite',
     INTERACTIVE_DIALOG: 'interactive_dialog',
+    ADD_TEAMS_TO_SCHEME: 'add_teams_to_scheme',
+    ADD_GROUPS_TO_TEAM: 'add_groups_to_team',
+    ADD_GROUPS_TO_CHANNEL: 'add_groups_to_channel',
+    MANAGE_TEAM_GROUPS: 'manage_team_groups',
+    MANAGE_CHANNEL_GROUPS: 'manage_channel_groups',
 };
 
 export const UserStatuses = {
@@ -209,6 +207,10 @@ export const UserSearchOptions = {
     WITHOUT_TEAM: 'without_team',
     ROLE: 'role',
 };
+
+export const EventTypes = keyMirror({
+    POST_LIST_SCROLL_CHANGE: null,
+});
 
 export const SocketEvents = {
     POSTED: 'posted',
@@ -477,6 +479,10 @@ export const PermissionsScope = {
     [Permissions.CREATE_GROUP_CHANNEL]: 'system_scope',
     [Permissions.MANAGE_PUBLIC_CHANNEL_PROPERTIES]: 'channel_scope',
     [Permissions.MANAGE_PRIVATE_CHANNEL_PROPERTIES]: 'channel_scope',
+    [Permissions.LIST_PUBLIC_TEAMS]: 'system_scope',
+    [Permissions.JOIN_PUBLIC_TEAMS]: 'system_scope',
+    [Permissions.LIST_PRIVATE_TEAMS]: 'system_scope',
+    [Permissions.JOIN_PRIVATE_TEAMS]: 'system_scope',
     [Permissions.LIST_TEAM_CHANNELS]: 'team_scope',
     [Permissions.JOIN_PUBLIC_CHANNELS]: 'team_scope',
     [Permissions.DELETE_PUBLIC_CHANNEL]: 'channel_scope',
@@ -548,6 +554,8 @@ export const DefaultRolePermissions = {
         Permissions.EDIT_POST,
         Permissions.MANAGE_CREATE_EMOJIS,
         Permissions.MANAGE_DELETE_EMOJIS,
+        Permissions.LIST_PUBLIC_TEAMS,
+        Permissions.JOIN_PUBLIC_TEAMS,
     ],
     channel_admin: [
         Permissions.MANAGE_CHANNEL_ROLES,
@@ -576,8 +584,8 @@ export const Locations = {
 };
 
 export const PostListRowListIds = {
-    DATE_LINE: 'date-',
-    START_OF_NEW_MESSAGES: 'START_OF_NEW_MESSAGES',
+    DATE_LINE: PostListUtils.DATE_LINE,
+    START_OF_NEW_MESSAGES: PostListUtils.START_OF_NEW_MESSAGES,
     CHANNEL_INTRO_MESSAGE: 'CHANNEL_INTRO_MESSAGE',
     MORE_MESSAGES_LOADER: 'MORE_MESSAGES_LOADER',
     MAX_MESSAGES_LOADED: 'MAX_MESSAGES_LOADED',
@@ -1150,7 +1158,8 @@ export const Constants = {
         text: {name: 'Text', extensions: ['txt', 'log']},
         vbnet: {name: 'VB.Net', extensions: ['vbnet', 'vb', 'bas'], aliases: ['vb', 'visualbasic']},
         vbscript: {name: 'VBScript', extensions: ['vbs']},
-        verilog: {name: 'Verilog', extensions: ['v', 'veo']},
+        verilog: {name: 'Verilog', extensions: ['v', 'veo', 'sv', 'svh']},
+        vhdl: {name: 'VHDL', extensions: ['vhd', 'vhdl']},
         xml: {name: 'HTML, XML', extensions: ['xml', 'html', 'xhtml', 'rss', 'atom', 'xsl', 'plist']},
         yaml: {name: 'YAML', extensions: ['yaml'], aliases: ['yml']},
     },
@@ -1253,5 +1262,6 @@ t('suggestion.mention.members');
 t('suggestion.mention.moremembers');
 t('suggestion.mention.nonmembers');
 t('suggestion.mention.special');
+t('suggestion.archive');
 
 export default Constants;

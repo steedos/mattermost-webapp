@@ -2,6 +2,7 @@
 // See LICENSE.txt for license information.
 
 import {getRandomInt} from '../../utils';
+import * as TIMEOUTS from '../../fixtures/timeouts';
 
 // ***************************************************************
 // - [number] indicates a test step (e.g. 1. Go to a page)
@@ -23,7 +24,7 @@ describe('Delete Parent Message', () => {
         cy.get('#post_textbox').click({force: true});
         cy.postMessage('Parent Message');
 
-        cy.getLastPostIdWithRetry().then((postId) => {
+        cy.getLastPostId().then((postId) => {
             cy.clickPostCommentIcon(postId);
 
             // * Check that the RHS is open
@@ -35,10 +36,10 @@ describe('Delete Parent Message', () => {
                 cy.get('#reply_textbox').type('Reply').type('{enter}');
 
                 // add wait time to ensure that a post gets posted and not on pending state
-                cy.wait(500); // eslint-disable-line
+                cy.wait(TIMEOUTS.TINY);
             }
 
-            cy.getLastPostIdWithRetry().then((replyPostId) => {
+            cy.getLastPostId().then((replyPostId) => {
                 // * No delete modal should be visible yet
                 cy.get('#deletePostModal').should('not.be.visible');
 
