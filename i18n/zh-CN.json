@@ -2283,6 +2283,7 @@
   "login.create": "现在创建一个",
   "login.createTeam": "创建一个新的团队",
   "login.email": "电子邮件",
+  "login.password":"密码",
   "login.forgot": "我忘记了密码",
   "login.get_terms_error": "无法加载服务条款。如果此问题持续，请联系您的系统管理员。",
   "login.gitlab": "GitLab",
