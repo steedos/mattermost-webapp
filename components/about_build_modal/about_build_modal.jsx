@@ -71,7 +71,7 @@ export default class AboutBuildModal extends React.PureComponent {
 
         let learnMore = (
             <div>
-                <FormattedMessage
+                {/* <FormattedMessage
                     id='about.teamEditionLearn'
                     defaultMessage='Join the Mattermost community at '
                 />
@@ -81,7 +81,7 @@ export default class AboutBuildModal extends React.PureComponent {
                     href='http://www.mattermost.org/'
                 >
                     {'mattermost.org'}
-                </a>
+                </a> */}
             </div>
         );
 
@@ -103,7 +103,7 @@ export default class AboutBuildModal extends React.PureComponent {
 
             learnMore = (
                 <div>
-                    <FormattedMessage
+                    {/* <FormattedMessage
                         id='about.enterpriseEditionLearn'
                         defaultMessage='Learn more about Enterprise Edition at '
                     />
@@ -113,7 +113,7 @@ export default class AboutBuildModal extends React.PureComponent {
                         href='http://about.mattermost.com/'
                     >
                         {'about.mattermost.com'}
-                    </a>
+                    </a> */}
                 </div>
             );
 
@@ -221,7 +221,7 @@ export default class AboutBuildModal extends React.PureComponent {
                             <MattermostLogo/>
                         </div>
                         <div>
-                            <h3 className='about-modal__title'>{'Mattermost'} {title}</h3>
+                            <h3 className='about-modal__title'>{'华信'} {title}</h3>
                             <p className='about-modal__subtitle padding-bottom'>{subTitle}</p>
                             <div className='form-group less'>
                                 <div>
