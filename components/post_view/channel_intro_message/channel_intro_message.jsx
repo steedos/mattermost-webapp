@@ -33,7 +33,7 @@ export default class ChannelIntroMessage extends React.PureComponent {
         channelProfiles: PropTypes.array.isRequired,
         enableUserCreation: PropTypes.bool,
         isReadOnly: PropTypes.bool,
-        teamIsGroupConstrained: PropTypes.bool.isRequired,
+        teamIsGroupConstrained: PropTypes.bool,
     };
 
     render() {
@@ -147,14 +147,12 @@ function createDMIntroMessage(channel, centeredIntro) {
                         hasMention={true}
                     />
                 </div>
-                <div className='channel-intro-profile'>
-                    <strong>
-                        <UserProfile
-                            userId={teammate.id}
-                            disablePopover={false}
-                            hasMention={true}
-                        />
-                    </strong>
+                <div className='channel-intro-profile d-flex'>
+                    <UserProfile
+                        userId={teammate.id}
+                        disablePopover={false}
+                        hasMention={true}
+                    />
                 </div>
                 <p className='channel-intro-text'>
                     <FormattedMarkdownMessage
